@@ -4304,14 +4304,14 @@ function objectToString(o) {
 
 module.exports = CSSselect;
 
-var Pseudos       = require("./lib/pseudos.js"),
+var Pseudos       = require("./lib/pseudos.js.js"),
     DomUtils      = require("domutils"),
     findOne       = DomUtils.findOne,
     findAll       = DomUtils.findAll,
     getChildren   = DomUtils.getChildren,
     removeSubsets = DomUtils.removeSubsets,
     falseFunc     = require("boolbase").falseFunc,
-    compile       = require("./lib/compile.js"),
+    compile       = require("./lib/compile.js.js"),
     compileUnsafe = compile.compileUnsafe,
     compileToken  = compile.compileToken;
 
@@ -4555,8 +4555,8 @@ module.exports.compileToken = compileToken;
 var parse       = require("css-what"),
     DomUtils    = require("domutils"),
     isTag       = DomUtils.isTag,
-    Rules       = require("./general.js"),
-    sortRules   = require("./sort.js"),
+    Rules       = require("./general.js.js"),
+    sortRules   = require("./sort.js.js"),
     BaseFuncs   = require("boolbase"),
     trueFunc    = BaseFuncs.trueFunc,
     falseFunc   = BaseFuncs.falseFunc,
@@ -4663,7 +4663,7 @@ function reduceRules(a, b){
 //doing this in lib/pseudos.js would lead to circular dependencies,
 //so we add them here
 
-var Pseudos     = require("./pseudos.js"),
+var Pseudos     = require("./pseudos.js.js"),
     filters     = Pseudos.filters,
     existsOne   = DomUtils.existsOne,
     isTag       = DomUtils.isTag,
@@ -4751,8 +4751,8 @@ var DomUtils    = require("domutils"),
 module.exports = {
 	__proto__: null,
 
-	attribute: require("./attributes.js").compile,
-	pseudo: require("./pseudos.js").compile,
+	attribute: require("./attributes.js.js").compile,
+	pseudo: require("./pseudos.js.js").compile,
 
 	//tags
 	tag: function(next, data){
@@ -4864,7 +4864,7 @@ var DomUtils    = require("domutils"),
     getName     = DomUtils.getName,
     getAttribute= DomUtils.getAttributeValue,
     getNCheck   = require("nth-check"),
-    checkAttrib = require("./attributes.js").rules.equals,
+    checkAttrib = require("./attributes.js.js").rules.equals,
     BaseFuncs   = require("boolbase"),
     trueFunc    = BaseFuncs.trueFunc,
     falseFunc   = BaseFuncs.falseFunc;
@@ -6582,8 +6582,8 @@ exports.getName = function(elem){
 };
 
 },{}],40:[function(require,module,exports){
-var encode = require("./lib/encode.js"),
-    decode = require("./lib/decode.js");
+var encode = require("./lib/encode.js.js"),
+    decode = require("./lib/decode.js.js");
 
 exports.decode = function(data, level){
 	return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
@@ -6620,7 +6620,7 @@ exports.escape = encode.escape;
 var entityMap = require("../maps/entities.json"),
     legacyMap = require("../maps/legacy.json"),
     xmlMap    = require("../maps/xml.json"),
-    decodeCodePoint = require("./decode_codepoint.js");
+    decodeCodePoint = require("./decode_codepoint.js.js");
 
 var decodeXMLStrict  = getStrictDecoder(xmlMap),
     decodeHTMLStrict = getStrictDecoder(entityMap);
@@ -13483,7 +13483,7 @@ function CollectingHandler(cbs){
 	this.events = [];
 }
 
-var EVENTS = require("./").EVENTS;
+var EVENTS = require(".").EVENTS;
 Object.keys(EVENTS).forEach(function(name){
 	if(EVENTS[name] === 0){
 		name = "on" + name;
@@ -13533,7 +13533,7 @@ CollectingHandler.prototype.restart = function(){
 };
 
 },{"./":111}],105:[function(require,module,exports){
-var index = require("./index.js"),
+var index = require("./index.js.js"),
     DomHandler = index.DomHandler,
 	DomUtils = index.DomUtils;
 
@@ -13630,7 +13630,7 @@ FeedHandler.prototype.onend = function(){
 module.exports = FeedHandler;
 
 },{"./index.js":111,"util":429}],106:[function(require,module,exports){
-var Tokenizer = require("./Tokenizer.js");
+var Tokenizer = require("./Tokenizer.js.js");
 
 /*
 	Options:
@@ -13988,7 +13988,7 @@ function ProxyHandler(cbs){
 	this._cbs = cbs || {};
 }
 
-var EVENTS = require("./").EVENTS;
+var EVENTS = require(".").EVENTS;
 Object.keys(EVENTS).forEach(function(name){
 	if(EVENTS[name] === 0){
 		name = "on" + name;
@@ -14012,7 +14012,7 @@ Object.keys(EVENTS).forEach(function(name){
 },{"./":111}],108:[function(require,module,exports){
 module.exports = Stream;
 
-var Parser = require("./WritableStream.js");
+var Parser = require("./WritableStream.js.js");
 
 function Stream(options){
 	Parser.call(this, new Cbs(this), options);
@@ -14956,7 +14956,7 @@ Tokenizer.prototype._emitPartial = function(value){
 },{"entities/lib/decode_codepoint.js":112,"entities/maps/entities.json":114,"entities/maps/legacy.json":115,"entities/maps/xml.json":116}],110:[function(require,module,exports){
 module.exports = Stream;
 
-var Parser = require("./Parser.js"),
+var Parser = require("./Parser.js.js"),
     WritableStream = require("stream").Writable || require("readable-stream").Writable;
 
 function Stream(cbs, options){
@@ -14976,7 +14976,7 @@ WritableStream.prototype._write = function(chunk, encoding, cb){
 	cb();
 };
 },{"./Parser.js":106,"readable-stream":3,"stream":424,"util":429}],111:[function(require,module,exports){
-var Parser = require("./Parser.js"),
+var Parser = require("./Parser.js.js"),
     DomHandler = require("domhandler");
 
 function defineProp(name, value){
@@ -14987,26 +14987,26 @@ function defineProp(name, value){
 
 module.exports = {
 	Parser: Parser,
-	Tokenizer: require("./Tokenizer.js"),
+	Tokenizer: require("./Tokenizer.js.js"),
 	ElementType: require("domelementtype"),
 	DomHandler: DomHandler,
 	get FeedHandler(){
-		return defineProp("FeedHandler", require("./FeedHandler.js"));
+		return defineProp("FeedHandler", require("./FeedHandler.js.js"));
 	},
 	get Stream(){
-		return defineProp("Stream", require("./Stream.js"));
+		return defineProp("Stream", require("./Stream.js.js"));
 	},
 	get WritableStream(){
-		return defineProp("WritableStream", require("./WritableStream.js"));
+		return defineProp("WritableStream", require("./WritableStream.js.js"));
 	},
 	get ProxyHandler(){
-		return defineProp("ProxyHandler", require("./ProxyHandler.js"));
+		return defineProp("ProxyHandler", require("./ProxyHandler.js.js"));
 	},
 	get DomUtils(){
 		return defineProp("DomUtils", require("domutils"));
 	},
 	get CollectingHandler(){
-		return defineProp("CollectingHandler", require("./CollectingHandler.js"));
+		return defineProp("CollectingHandler", require("./CollectingHandler.js.js"));
 	},
 	// For legacy support
 	DefaultHandler: DomHandler,
@@ -35574,8 +35574,8 @@ function compile(parsed){
 	};
 }
 },{"boolbase":2}],246:[function(require,module,exports){
-var parse = require("./parse.js"),
-    compile = require("./compile.js");
+var parse = require("./parse.js.js"),
+    compile = require("./compile.js.js");
 
 module.exports = function nthCheck(formula){
 	return compile(parse(formula));
@@ -56330,7 +56330,7 @@ module.exports = validateDOMNesting;
 module.exports = require('./lib/React');
 
 },{"./lib/React":291}],413:[function(require,module,exports){
-module.exports = require("./lib/_stream_duplex.js")
+module.exports = require("./lib/_stream_duplex.js.js")
 
 },{"./lib/_stream_duplex.js":414}],414:[function(require,module,exports){
 // a duplex stream is just a stream that is both readable and writable.
@@ -58151,7 +58151,7 @@ BufferList.prototype.concat = function (n) {
   return ret;
 };
 },{"buffer":5,"buffer-shims":4}],420:[function(require,module,exports){
-module.exports = require("./lib/_stream_passthrough.js")
+module.exports = require("./lib/_stream_passthrough.js.js")
 
 },{"./lib/_stream_passthrough.js":415}],421:[function(require,module,exports){
 (function (process){
@@ -58160,13 +58160,13 @@ var Stream = (function (){
     return require('st' + 'ream'); // hack to fix a circular dependency issue when used with browserify
   } catch(_){}
 }());
-exports = module.exports = require('./lib/_stream_readable.js');
+exports = module.exports = require('./lib/_stream_readable.js.js');
 exports.Stream = Stream || exports;
 exports.Readable = exports;
-exports.Writable = require('./lib/_stream_writable.js');
-exports.Duplex = require('./lib/_stream_duplex.js');
-exports.Transform = require('./lib/_stream_transform.js');
-exports.PassThrough = require('./lib/_stream_passthrough.js');
+exports.Writable = require('./lib/_stream_writable.js.js');
+exports.Duplex = require('./lib/_stream_duplex.js.js');
+exports.Transform = require('./lib/_stream_transform.js.js');
+exports.PassThrough = require('./lib/_stream_passthrough.js.js');
 
 if (!process.browser && process.env.READABLE_STREAM === 'disable' && Stream) {
   module.exports = Stream;
@@ -58174,10 +58174,10 @@ if (!process.browser && process.env.READABLE_STREAM === 'disable' && Stream) {
 
 }).call(this,require('_process'))
 },{"./lib/_stream_duplex.js":414,"./lib/_stream_passthrough.js":415,"./lib/_stream_readable.js":416,"./lib/_stream_transform.js":417,"./lib/_stream_writable.js":418,"_process":262}],422:[function(require,module,exports){
-module.exports = require("./lib/_stream_transform.js")
+module.exports = require("./lib/_stream_transform.js.js")
 
 },{"./lib/_stream_transform.js":417}],423:[function(require,module,exports){
-module.exports = require("./lib/_stream_writable.js")
+module.exports = require("./lib/_stream_writable.js.js")
 
 },{"./lib/_stream_writable.js":418}],424:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
